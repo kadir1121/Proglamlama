@@ -1,2 +1,2 @@
-# Proglamlama
+# Programlama Teknikleri
 Final
