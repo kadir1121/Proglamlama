@@ -1,72 +1,61 @@
-               ------------------- /*C# da Şireleme kodları*/ -------------------------------
-
-
+           /*--------------- /*C# da Şifreleme kodları*/ ---------------*/
+private void btnSifre_Click(object sender, EventArgs e)
+        {
             string giris = Convert.ToString(tbGiris.Text);
             string asc, donusum;
             int deger, rasgele, mod, sifre, r;
             sifre = Convert.ToInt32(tbSifre.Text);
             mod = (sifre % (sifre / 10000)) + 1;
-            if (mod == 0)
-            {
+            if (mod == 0){
                 mod += 1;
             }
             r = sifre % 10;
-            if (r == 0)
-            {
+            if (r == 0){
                 r = 2;
             }
             int hane = Convert.ToInt32(cbHane.Text);
-            if (hane == 0)
-            {
+            if (hane == 0){
                 hane = 6;
             }
 
-            for (int i = 0; i < giris.Length; i++)
-            {
+            for (int i = 0; i < giris.Length; i++) {
                 asc = Convert.ToInt32(Convert.ToChar(giris.Substring(i, 1))).ToString();
                 deger = Convert.ToInt32(asc);
                 deger += mod;
                 rasgele = deger * r;
-                for (int x = 0; x < hane; x++)
-                {
+                for (int x = 0; x < hane; x++){
 
                     rasgele += 5;
                     donusum = ((char)rasgele).ToString();
                     tbSonuc.Text = tbSonuc.Text + donusum;
                 }
             }
-            
-            
-            ------------------- /*C# da Şifre çözme kodları*/ -------------------------------
-            
-            
-            
-            
-            
-            
+        }
+
+/*--------------- /*C# da Şifre çözme kodları*/ ---------------*/
+
+
+
+private void btnCoz_Click(object sender, EventArgs e)
+        {
             string coz = Convert.ToString(tbCozgir.Text);
             string asc, donusum;
             int deger, rasgele, mod, sifre, r, a = 0;
             sifre = Convert.ToInt32(tbSifre.Text);
             mod = (sifre % (sifre / 10000)) + 1;
-
-            if (mod == 0)
-            {
+            if (mod == 0){
                 mod += 1;
             }
             r = sifre % 10;
-            if (r == 0)
-            {
+            if (r == 0){
                 r = 2;
             }
             int hane = Convert.ToInt32(cbHane.Text);
-            if (hane==0)
-            {
+            if (hane==0){
                 hane = 6;
             }
 
-            for (int i = 0; i < ((coz.Length) / hane); i++)
-            {
+            for (int i = 0; i < ((coz.Length) / hane); i++){
 
                 asc = Convert.ToInt32(Convert.ToChar(coz.Substring(a, 1))).ToString();
                 deger = Convert.ToInt32(asc);
@@ -75,10 +64,262 @@
                 a += hane;
                 donusum = ((char)rasgele).ToString();
                 tbCozSonuc.Text = tbCozSonuc.Text + donusum;
+               }
+}
+
+/*--------------- /*C# da Şifre kontrol kodları*/ ---------------*/
+
+bool SayiMi(string text)
+        {
+            foreach (char chr in text)
+            {
+                if (!Char.IsNumber(chr)) return false;
+            }
+            return true;
+        }
+        private void btnDevam_Click(object sender, EventArgs e)
+        {            
+            string sifreStr = Convert.ToString(tbSifre.Text);
+            if (sifreStr == "000000")
+            {
+                MessageBox.Show("0 dan büyük bir şifre kullanınız!!!", "Uyarı Mesajı!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbSifre.Clear();
+            }
+            else if (sifreStr.Length < 6)
+            {
+                MessageBox.Show("Lütfen 6 karakterli bir şifre giriniz!!!", "Uyarı Mesajı!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbSifre.Clear();
+            }
+            else if (SayiMi(tbSifre.Text) == false)
+            {
+                MessageBox.Show("Lütfen sadece rakam giriniz!!!", "Uyarı Mesajı!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbSifre.Clear();
+            }
+            else
+            {
+label1.Visible = true; lSifreleme.Visible = true; lSifreCozme.Visible = true;             rbCoz.Visible = true;
+rbSifrele.Visible = true; btnRbSifrele.Visible = true; btnRbCoz.Visible = true; btnDevam.Visible = false;
+tbSifre.Visible = false; label2.Visible = false; label3.Visible = false; label4.Visible = false;
+            }
+
+        }
 
 
+/*--------------- /*Arayüz kodları kodları*/ ---------------*/
+
+/*--------------- /* Radio button Şifreleme menüsü */ ---------------*/
+
+private void rbSifrele_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbSifrele.Checked == true)
+            {
+                tbCozSonuc.Clear(); tbSonuc.Clear(); tbCozgir.Clear(); tbGiris.Clear();               
+                btnCYapistir.Visible = false; btnCKopyala.Visible = false; 
+  lSifreliMetinGir.Visible = false;
+                tbCozgir.Visible = false; tbCozSonuc.Visible = false; tbCozSonuc.Visible = false;
+                tbCozSonuc.Visible = false; lSifreCozun.Visible = false; btnCoz.Visible = false;
+                lHane.Visible = true; lKacHane.Visible = false; cbHane.Visible = true;
+                btnSYapistir.Visible = true; lMetinGir.Visible = true; tbGiris.Visible = true;
+                tbSonuc.Visible = true; lSifreleyin.Visible = true; lTemizle.Visible = true;
+                btnTemizle.Visible = true; btnSifre.Visible = true; lKopyala.Visible = true;
+                btnSKopyala.Visible = true; 
 
             }
+        }
+
+
+
+
+
+/*--------------- /* Radio button Şifre çözme menüsü */ ---------------*/
+
+        private void rbCoz_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCoz.Checked == true)
+            {
+                tbCozSonuc.Clear(); tbSonuc.Clear(); tbCozgir.Clear(); tbGiris.Clear(); 
+                btnSYapistir.Visible = false; btnSKopyala.Visible = false; 
+  lMetinGir.Visible = false;
+                tbGiris.Visible = false; tbSonuc.Visible = false; lSifreleyin.Visible = false;
+                lHane.Visible = false; lKacHane.Visible = true; cbHane.Visible = true;
+                btnCYapistir.Visible = true; lSifreliMetinGir.Visible = true; 
+  tbCozgir.Visible = true;
+                tbCozSonuc.Visible = true; tbCozSonuc.Visible = true; lSifreCozun.Visible = true;
+                lTemizle.Visible = true; btnTemizle.Visible = true; btnCoz.Visible = true;
+                lKopyala.Visible = true; btnCKopyala.Visible = true; 
+            }
+        }
+
+/*--------------- /* Kopyalama butonları*/ ---------------*/
+
+        private void btnCKopyala_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbCozSonuc.Text);
+        }
+
+        private void btnSKopyala_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbSonuc.Text);
+        }
+/*--------------- /* Temizleme butonu menüsü */ ---------------*/
+
+
+        private void btnTemizle_Click(object sender, EventArgs e)
+        {
+            DialogResult temizle = MessageBox.Show("Tüm girişleri temizlemek istiyormusunuz", 
+     "Uyarı Mesajı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (temizle == DialogResult.Yes)
+            {
+                tbSonuc.Clear(); tbGiris.Clear(); tbCozgir.Clear(); tbCozSonuc.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Temizleme işlemi başarısız!", "Bilgilendirme Mesajı", 
+		  MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+        }
+
+/*--------------- /* Çıkış butonu menüsü */ ---------------*/
+
+        private void btCıkıs_Click(object sender, EventArgs e)
+        {
+
+            DialogResult cıkıs = MessageBox.Show("Programı sonlandırmak istiyormusunuz ?", 
+     "Uyarı Mesajı", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (cıkıs == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Çıkış işlemi başarısız!", "Bilgilendirme Mesajı",
+  MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
+/*--------------- /* Radio buttonların altındaki butonlar (Menü butonları) */ ---------------*/
+
+private void btnRbSifrele_Click(object sender, EventArgs e)
+        {
+            rbSifrele.PerformClick();
+        }
+
+        private void btnRbCoz_Click(object sender, EventArgs e)
+        {
+            rbCoz.PerformClick();
+        }
+/*--------------- /* Yapıştırma butonları*/ ---------------*/
+
+        private void btnCYapistir_Click(object sender, EventArgs e)
+        {
+            tbCozgir.Text = Clipboard.GetText();
+        }
+
+        private void btnSYapistir_Click(object sender, EventArgs e)
+        {
+            tbGiris.Text = Clipboard.GetText();
+        }
+
+/*--------------- /* Program açılırken işlenecek komutlar(Hoşgeldin mesajı). */ ---------------*/
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                cbHane.Items.Add(i);
+            }
+                 MessageBox.Show("Geri dönüşümlü KRİPTOLAMA sistemime hoşgeldiniz.\n" +
+                "Giriş için lütfen önce 6 haneli sadece rakamlardan oluşan şifrenizi giriniz...",
+                "Bilgilendirme Mesajı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+/*--------------- /* Yardım butonu */ ---------------*/
+
+        private void btnYardım_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Oluşturduğunuz şifre ile girdiğiniz metin yada veri \nşifreniz ile 
+	     birlikte herhanesi Belirlediğiniz veya 6 haneli " +
+            "\nolmak üzere başka bir veriye dönüşür.\n" +
+            "Oluşan veriyi kopyalayıp şifrenizi tekrar ve berilediğiniz hane sayısını !AYNI! girmek
+      koşulu ile \ntekrar ilk girdiğiniz metin yada veri türüne çevirir",
+            "Bilgilendirme Mesajı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+/*------ /* Sonuç yapılan textboxlara çift tıklanırsa içindeki veriyi kopyalama kodları*/ ------*/
+
+
+        private void tbSonuc_DoubleClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbSonuc.Text);
+        }
+
+        private void tbCozSonuc_DoubleClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(tbCozSonuc.Text);
+        }
+
+
+
+
+
+
+
+/*--------------- /* Giriş yapıldıktan sonra enter tuşu ile buton işlevi komutları */ ---------------*/
+
+        private void tbSifre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnDevam.PerformClick();
+            }
+
+        }
+
+        private void tbCozgir_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnCoz.PerformClick();
+            }
+        }
+
+        private void tbGiris_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnSifre.PerformClick();
+            }
+        }
+
+/*--------------- /* Yeniden başlatma(geri) butonu */ ---------------*/
+
+        private void btnGeri_Click(object sender, EventArgs e)
+        {
+            rbCoz.Checked = false; rbSifrele.Checked = false; tbSifre.Clear();
+            btnSifre.Visible = false; btnCoz.Visible = false; btnTemizle.Visible = false; 
+	     lTemizle.Visible = false;
+            btnSKopyala.Visible = false; btnCKopyala.Visible = false; lKopyala.Visible = false;
+            btnSYapistir.Visible = false; btnSKopyala.Visible = false; lMetinGir.Visible = false;
+            tbGiris.Visible = false; tbSonuc.Visible = false; lSifreleyin.Visible = false;
+            btnCYapistir.Visible = false; btnCKopyala.Visible = false; 
+     lSifreliMetinGir.Visible = false;
+            tbCozgir.Visible = false; tbCozSonuc.Visible = false; tbCozSonuc.Visible = false;
+            tbCozSonuc.Visible = false; lSifreCozun.Visible = false; btnCoz.Visible = false;
+            label1.Visible = false; lSifreleme.Visible = false; lSifreCozme.Visible = false; 	     
+            lKacHane.Visible = false; lHane.Visible = false; cbHane.Visible = false; 
+     rbSifrele.Visible = false; btnRbSifrele.Visible = false; btnRbCoz.Visible = false;
+     btnDevam.Visible = true;label4.Visible = true; rbCoz.Visible = false;
+            tbSifre.Visible = true; label2.Visible = true; label3.Visible = true; 
+            
+        }
+
+    }
+
             
             
             
