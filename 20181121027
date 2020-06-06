@@ -1,0 +1,99 @@
+               ------------------- /*C# da Şireleme kodları*/ -------------------------------
+
+
+            string giris = Convert.ToString(tbGiris.Text);
+            string asc, donusum;
+            int deger, rasgele, mod, sifre, r;
+            sifre = Convert.ToInt32(tbSifre.Text);
+            mod = (sifre % (sifre / 10000)) + 1;
+            if (mod == 0)
+            {
+                mod += 1;
+            }
+            r = sifre % 10;
+            if (r == 0)
+            {
+                r = 2;
+            }
+            int hane = Convert.ToInt32(cbHane.Text);
+            if (hane == 0)
+            {
+                hane = 6;
+            }
+
+            for (int i = 0; i < giris.Length; i++)
+            {
+                asc = Convert.ToInt32(Convert.ToChar(giris.Substring(i, 1))).ToString();
+                deger = Convert.ToInt32(asc);
+                deger += mod;
+                rasgele = deger * r;
+                for (int x = 0; x < hane; x++)
+                {
+
+                    rasgele += 5;
+                    donusum = ((char)rasgele).ToString();
+                    tbSonuc.Text = tbSonuc.Text + donusum;
+                }
+            }
+            
+            
+            ------------------- /*C# da Şifre çözme kodları*/ -------------------------------
+            
+            
+            
+            
+            
+            
+            string coz = Convert.ToString(tbCozgir.Text);
+            string asc, donusum;
+            int deger, rasgele, mod, sifre, r, a = 0;
+            sifre = Convert.ToInt32(tbSifre.Text);
+            mod = (sifre % (sifre / 10000)) + 1;
+
+            if (mod == 0)
+            {
+                mod += 1;
+            }
+            r = sifre % 10;
+            if (r == 0)
+            {
+                r = 2;
+            }
+            int hane = Convert.ToInt32(cbHane.Text);
+            if (hane==0)
+            {
+                hane = 6;
+            }
+
+            for (int i = 0; i < ((coz.Length) / hane); i++)
+            {
+
+                asc = Convert.ToInt32(Convert.ToChar(coz.Substring(a, 1))).ToString();
+                deger = Convert.ToInt32(asc);
+                deger -= 5;
+                rasgele = (deger / r) - mod;
+                a += hane;
+                donusum = ((char)rasgele).ToString();
+                tbCozSonuc.Text = tbCozSonuc.Text + donusum;
+
+
+
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
